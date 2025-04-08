@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header img {
+      max-width: 100px;
+      height: auto;
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #333;
+    }
+
+    h2.form-title {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 24px;
+      color: #555;
+    }
+
+    .form-section {
+      max-width: 500px;
+      margin: 30px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 95%;
+      padding: 12px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .freight-section {
+      margin-top: 20px;
+    }
+
+    .freight-section label {
+      display: inline-block;
+      margin-right: 20px;
+      font-weight: normal;
+    }
+        /* Container for the dropdowns */
+    .dropdown-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Labels */
+    label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Styled select dropdown */
+    select {
+      padding: 0.75rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #fff;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' width='12' height='12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,0 140,0 70,70' fill='%23999'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 10px;
+      transition: border-color 0.3s ease;
+    }
+
+    select:focus {
+      border-color: #5c9ded;
+      outline: none;
+    }
+
+    /* Mobile responsiveness */
+    @media screen and (max-width: 600px) {
+      .dropdown-container {
+        gap: 0.75rem;
+      }
+
+      select {
+        font-size: 0.95rem;
+        padding: 0.6rem 0.9rem;
+      }
+    }
+
+    .form-section {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input[type="number"] {
+      padding: 0.75rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .option-group {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .option-group label {
+      font-weight: 500;
+    }
+
+    #priceInputWrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    #finalTable {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #finalTable table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+    }
+
+    #finalTable th, #finalTable td {
+      padding: 12px 16px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    #finalTable th {
+      background-color: #4169E1;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    #finalTable tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #finalTable tr:hover {
+      background-color: #e6f0ff;
+    }
+
+    /* Prompt Styles */
+    #anotherEntryPrompt {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background-color: #e8f0fe;
+      border-radius: 12px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #anotherEntryPrompt p {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    #anotherEntryPrompt button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      background-color: #4169E1;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    #anotherEntryPrompt button:hover {
+      background-color: #2a52be;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- 🖼️ Replace 'logo.png' with your actual logo file path -->
+    <img src="logo_bp.svg" alt="Company Logo" />
+    <h1>BlueStar Packraft</h1>
+  </header>
+
+  <h2 class="form-title">Order Form - 2025</h2>
+
+  <div class="form-section">
+    <form id="orderForm">
+      <label for="customerName">Customer Name:</label>
+      <input type="text" id="customerName" name="customerName" required />
+
+      <div style="margin-bottom: 1rem;">
+        <label for="employeeName"><strong>Employee Name:</strong></label>
+        <input type="text" id="employeeName" name="employeeName" required style="padding: 12px; width: 350px; margin-left: 6px;">
+      </div>      
+  
+      <div class="freight-section">
+        <label>Freight:</label>
+        <label><input type="radio" name="freight" value="Paid" required /> Paid</label>
+        <label><input type="radio" name="freight" value="To Pay" required /> To Pay</label>
+      </div>
+
+      <div class="dropdown-container">
+          <label for="productCategory">Product Category:</label>
+          <select id="productCategory" required>
+            <option value="">-- Select Category --</option>
+            <option value="Bio Degradable Cups">Bio Degradable Cups</option>
+            <option value="PET Items">PET Items</option>
+            <option value="New Series Hinge Items">New Series Hinge Items</option>
+            <option value="PET Lids">PET Lids</option>
+            <option value="PET Product for Packaging">PET Product for Packaging</option>
+            <option value="PET Dips">PET Dips</option>
+            <option value="PET Glass for Packaging">PET Glass for Packaging</option>
+            <option value="LEAK PROOF CONTAINERS (116MM DIA)">LEAK PROOF CONTAINERS (116MM DIA)</option>
+            <option value="LEAK PROOF CONTAINERS COMBO (116MM DIA)">LEAK PROOF CONTAINERS COMBO (116MM DIA)</option>
+            <option value="Lunch Box">Lunch Box</option>
+            <option value="Bio Lunch Box">Bio Lunch Box</option>
+            <option value="Sweet Boxes (190 x 140)">Sweet Boxes (190 x 140)</option>
+            <option value="Small Sweet Box">Small Sweet Box</option>
+            <option value="Round Container Items">Round Container Items</option>
+            <option value="PP Round Container 123mm DIA OCTA">PP Round Container 123mm DIA OCTA</option>
+            <option value="PP ROUND CONTAINER 123MM DIA OCTA COMBO">PP ROUND CONTAINER 123MM DIA OCTA COMBO</option>
+            <option value="Hinged Cake Box">Hinged Cake Box</option>
+            <option value="PET Agriculture Product">PET Agriculture Product</option>
+            <option value="ECO Brand">ECO Brand</option>
+            <option value="Baggase Tableware">Baggase Tableware</option>
+        </select>
+
+        <label for="productName">Product Name:</label>
+        <select id="productName" required>
+          <option value="">-- Select Product --</option>
+        </select>
+      </div>
+
+      <div class="form-section">
+        <label for="quantity">Quantity (In Boxes)</label>
+        <input type="number" id="quantity" placeholder="Enter quantity" min="1" required>
+      
+        <div class="option-group">
+          <p>Select one:</p>
+          <label><input type="radio" name="priceType" value="rate" checked> Rate</label>
+          <label><input type="radio" name="priceType" value="discount"> Discount</label>
+        </div>
+      
+        <div id="priceInputWrapper">
+          <label for="priceInput" id="priceLabel">Rate</label>
+          <input type="number" id="priceInput" placeholder="Enter rate">
+        </div>
+      </div>
+      
+      <button 
+        type="button" 
+        id="submitBtn"
+        style="margin-top: 1rem; padding: 10px 20px; border-radius: 8px; background-color: #4169E1; color: white; border: none; cursor: pointer;">
+        Submit
+      </button>
+    
+      </form>
+  </div>
+
+  <div id="anotherEntryPrompt" style="display: none;">
+    <p>Do you want to add another entry?</p>
+    <button onclick="addAnotherEntry(true)">Yes</button>
+    <button onclick="addAnotherEntry(false)">No</button>
+  </div>
+  
+  <div id="finalTable" style="display: none;">
+    <h3>Submitted Entries:</h3>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Freight</th>
+          <th>Category</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Type</th>
+          <th>Price/Discount</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+
+    <!-- Add this line below the table -->
+    <p id="employeeDisplay" style="text-align: center; font-size: 1.1rem; margin-top: 1rem;"></p>
+  </div>
+  
+  
+  <script>
+    const productData = {
+      "Bio Degradable Cups": [
+        "BIO DEGRADABLE ICE CUP (100ML)",
+        "BIO DEGRADABLE ICE CUP (180ML)",
+        "BIO DEGRADABLE DIAMOND (200ML)",
+        "BIO DEGRADABLE DIAMOND (250ML)",
+        "BIO DEGRADABLE PLAIN (300ML)",
+        "BIO DEGRADABLE WINE (350ML)",
+        "BIO DEGRADABLE KFC (350ML)"
+      ],
+      "PET Items": [
+        "100ML HINGE BOX",
+        "150ML HINGE BOX",
+        "250ML HINGE BOX",
+        "375ML HINGE BOX",
+        "500ML HINGE BOX",
+        "600ML HINGE BOX",
+        "600ML HINGE BOX CUT SIZE",
+        "600ML HINGE BOX HI LID",
+        "750ML HINGE  BOX",
+        "750ML HINGE  BOX HI LID",
+        "1000ML HINGE BOX",
+        "1000ML HINGE BOX HI LID",
+        "1250ML HINGE BOX",
+        "1250ML HINGE BOX HI LID",
+        "1500ML HINGE BOX",
+        "1500ML HINGE BOX HI LID",
+        "2000ML HINGE BOX",
+        "2000ML HINGE BOX HI LID",
+        "2250ML HINGE BOX",
+        "2250ML HINGE BOX HI LID"
+      ],
+      "New Series Hinge Items": [
+        "13 NO HINGE",
+        "15 NO HINGE",
+        "2000ML EVIDENT BOX",
+        "2000ML EVIDENT LID",
+        "915oz HINGE BOX",
+        "916oz HINGE BOX",
+        "917oz HINGE BOX"
+      ],
+      "PET Lids": [
+        "80 DIA FLAT LID STRAWCUT",
+        "80 DIA DOME LID RIB",
+        "95 DIA FLAT LID STRAWCUT",
+        "95 DIA DOME LID RIB"
+      ],
+      "PET Product for Packaging": [
+        "PET HINGE ROUND 8OZ FLAT LID",
+        "PET HINGE ROUND 8OZ DOME LID",
+        "PET HINGE ROUND 12OZ FLAT LID",
+        "PET HINGE ROUND 12OZ DOME LID",
+        "PET HINGE ROUND 16OZ FLAT LID",
+        "PET HINGE ROUND 16OZ DOME LID",
+        "PET HINGE ROUND 20OZ FLAT LID",
+        "PET HINGE ROUND 20OZ DOME LID",
+        "PET HINGE ROUND 24OZ FLAT LID",
+        "PET HINGE ROUND 24OZ DOME LID",
+        "PET HINGE ROUND 32OZ FLAT LID",
+        "PET HINGE ROUND 32OZ DOME LID",
+        "PET HINGE ROUND 34OZ DOME LID",
+        "PET HINGE ROUND 34OZ FLAT LID",
+        "PET HINGE ROUND 3CP DRY FRUIT",
+        "PET HINGE ROUND 4CP DRY FRUIT 1250ML",
+        "PET HINGE ROUND 4CP DRY FRUIT 1500ML",
+        "PET HINGE MUFFINS 4PCS",
+        "PET HINGE MUFFINS 6PCS"
+      ],
+      "PET Dips": [
+        "SAUCE DIP 35ML",
+        "SAUCE DIP 70ML",
+        "PAN WATI ( SMALL )",
+        "PAN WATI ( LARGE )"
+      ],
+      "PET Glass for Packaging": [
+        "PET 200ML PLAIN",
+        "PET 250ML PLAIN",
+        "PET 300ML PLAIN",
+        "PET 350ML PLAIN",
+        "PET 500ML (POPCORN) DELUXE",
+        "PET 500ML (POPCORN) PLAIN"
+      ],
+      "LEAK PROOF CONTAINERS (116MM DIA)": [
+        "CONTAINER 300ML MILKY",
+        "CONTAINER 300ML BLACK",
+        "CONTAINER 500ML MILKY",
+        "CONTAINER 500ML BLACK",
+        "CONTAINER 750ML MILKY",
+        "CONTAINER 750ML BLACK",
+        "CONTAINER 1000ML MILKY",
+        "CONTAINER 1000ML BLACK",
+        "CONTAINER LID"
+      ],
+      "LEAK PROOF CONTAINERS COMBO (116MM DIA)": [
+        "CONTAINER 300ML WITH LID",
+        "CONTAINER 500ML WITH LID",
+        "CONTAINER 750ML WITH LID",
+        "CONTAINER 1000ML WITH LID"
+      ],
+      "Lunch Box": [
+        "2CP LUNCH BOX",
+        "2CP LID",
+        "2CP LUNCH BOX MINI",
+        "2CP LID MINI",
+        "3CP LUNCH BOX",
+        "3CP LID",
+        "3CP LUNCH MINI",
+        "3CP LID MINI",
+        "4CP PLATTER LUNCH BOX",
+        "4CP PLATTER LID",
+        "5CP LUNCH BOX",
+        "5CP LID",
+        "6CP LUNCH BOX",
+        "6CP LID",
+        "8CP LUNCH BOX",
+        "8CP LID",
+        "3CP LUNCH BOX (LARGE)",
+        "3CP LID (LARGE)",
+        "5CP PT LUNCH BOX",
+        "5CP PT LID",
+        "5CP SUPER BLACK",
+        "5CP SUPER LID",
+        "5CP SEALABLE LUNCH BOX",
+        "5CP SEALABLE LID",
+        "8CP SEALABLE LUNCH BOX",
+        "8CP SEALABLE LID",
+        "5CP SEALABLE LUNCH BOX (MINI)",
+        "5CP SEALABLE LID (MINI)"
+      ],
+      "Bio Lunch Box": [
+        "BIO STARCH MEAL BOX 2CP",
+        "BIO STARCH MEAL BOX 2CP LID",
+        "BIO STARCH MEAL BOX 3CP",
+        "BIO STARCH MEAL BOX 3CP LID",
+        "BIO STARCH MEAL BOX 5CP",
+        "BIO STARCH MEAL BOX 5CP LID",
+        "BIO STARCH MEAL BOX 8CP",
+        "BIO STARCH MEAL BOX 8CP LID"
+      ],
+      "Sweet Boxes (190 x 140)": [
+        "SWEET BOX 400ML",
+        "SWEET BOX 500ML",
+        "SWEET BOX 750ML",
+        "SWEET BOX 1000ML",
+        "SWEET BOX 1250ML",
+        "SWEET BOX 1500ML",
+        "SWEET BOX 1800ML",
+        "SWEET BOX LID",
+        "PASTA 30MM BLACK",
+        "PASTA 40MM BLACK",
+        "PASTA 60MM BLACK",
+        "2CP SWEET NATURAL/BLACK",
+        "3CP SWEET NATURAL/BLACK"
+      ],
+      "Small Sweet Box": [
+        "SSB 250ML",
+        "SSB 350ML",
+        "SSB 450ML",
+        "MINI SWEET BOX LID"
+      ],
+      "Round Container Items": [
+        "RD/123/ 250ML",
+        "RD/123/ 500ML",
+        "RD/123/ 750ML",
+        "RD/123/ 1000ML",
+        "RD/123/ LID"
+      ],
+      "PP Round Container 123mm DIA OCTA": [
+        "RD/ OCTA 300ML",
+        "RD/ OCTA 500ML",
+        "RD/ OCTA 750ML",
+        "RD/ OCTA 1000ML"
+      ],
+      "PP ROUND CONTAINER 123MM DIA OCTA COMBO": [
+        "RD/ OCTA 300ML WITH LID",
+        "RD/ OCTA 500ML WITH LID",
+        "RD/ OCTA 750ML WITH LID",
+        "RD/ OCTA 1000ML WITH LID"
+      ],
+      "Hinged Cake Box": [
+        "HINGED CAKE BOX ( SMALL )",
+        "HINGED CAKE BOX ( LARGE )"
+      ],
+      "PET Agriculture Product": [
+        "3PC KIWI TRIANGULAR",
+        "500GM GRAPES PUNNET",
+        "250GM GRAPES PUNNET A",
+        "250GM GRAPES PUNNET E",
+        "3PC SQUARE PUNNET",
+        "STRAWBERRY PUNNET A",
+        "STRAWBERRY PUNNET E",
+        "6PC APPLE PUNNET"
+      ],
+      "ECO Brand": [
+        "100ML HINGED BOX ECO",
+        "150ML HINGED BOX ECO",
+        "250 ML HINGED BOX ECO",
+        "375 ML HINGED BOX ECO",
+        "500 ML HINGED BOX ECO",
+        "600 ML HINGED BOX ECO",
+        "600 ML HINGED BOX ECO HI LID",
+        "750 ML HINGED BOX ECO",
+        "750 ML HINGED BOX ECO HI LID",
+        "1000 ML HINGED BOX ECO",
+        "1000 ML HINGED BOX ECO HI LID",
+        "1250 ML HINGED BOX ECO",
+        "1250 ML HINGED BOX ECO HI LID",
+        "1500 ML HINGED BOX ECO",
+        "1500 ML HINGED BOX ECO HI LID",
+        "2000 ML HINGED BOX ECO",
+        "2000 ML HINGED BOX ECO HI LID",
+        "2250 ML HINGED BOX ECO",
+        "2250 ML HINGED BOX ECO HI LID"
+      ],
+      "Baggase Tableware": [
+        "180 ML BOWL",
+        "240 ML BOWL",
+        "360 ML BOWL",
+        "6\" PLATE ROUND",
+        "7\" PLATE ROUND",
+        "9\" ROUND PLATE",
+        "9\" ROUND PLATE 3 CP",
+        "10\" ROUND PLATE",
+        "10\" ROUND PLATE 3 CP",
+        "11\" ROUND PLATE",
+        "11\" ROUND PLATE 4 CP",
+        "12\" ROUND PLATE",
+        "12\" ROUND PLATE 4 CP",
+        "9\" SQUARE PLATE 3 CP",
+        "5 CP MEAL TRAY",
+        "6\"x 6\" CLAMSHALL",
+        "9\"x 6\" CLAMSHALL"
+      ]
+    };
+  
+    const categorySelect = document.getElementById('productCategory');
+    const productSelect = document.getElementById('productName');
+  
+    categorySelect.addEventListener('change', function () {
+      const selectedCategory = this.value;
+      const products = productData[selectedCategory] || [];
+  
+      // Clear previous options
+      productSelect.innerHTML = '<option value="">-- Select Product --</option>';
+  
+      // Populate product dropdown
+      products.forEach(product => {
+        const option = document.createElement('option');
+        option.value = product;
+        option.textContent = product;
+        productSelect.appendChild(option);
+      });
+    });
+  </script>
+  
+  <script>
+    const entries = [];
+    let employeeNameGlobal = '';
+  
+    // Update price label based on price type (rate or discount)
+    const radioButtons = document.querySelectorAll('input[name="priceType"]');
+    const priceLabel = document.getElementById('priceLabel');
+  
+    radioButtons.forEach(radio => {
+      radio.addEventListener('change', () => {
+        priceLabel.textContent = radio.value === 'rate' ? 'Rate(in Rs.)' : 'Discount %';
+      });
+    });
+  
+    // Submit button click handler
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      const customer = document.getElementById('customerName').value;
+      const employeeName = document.getElementById('employeeName').value;
+      const freight = document.querySelector('input[name="freight"]:checked')?.value || '';
+      const category = document.getElementById('productCategory').value;
+      const product = document.getElementById('productName').value;
+      const quantity = document.getElementById('quantity').value;
+      const priceType = document.querySelector('input[name="priceType"]:checked')?.value || '';
+      const priceValue = document.getElementById('priceInput').value;
+  
+      if (!employeeName || !customer || !freight || !category || !product || !quantity || !priceValue) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // Save only once
+      if (!employeeNameGlobal) {
+        employeeNameGlobal = employeeName;
+      }
+  
+      entries.push({
+        customer, freight, category, product, quantity, priceType, priceValue
+      });
+  
+      // Hide form, show prompt
+      document.querySelector('.form-section').style.display = 'none';
+      document.getElementById('submitBtn').style.display = 'none';
+      document.getElementById('anotherEntryPrompt').style.display = 'block';
+    });
+  
+    // Handle "Add another entry?" response
+    function addAnotherEntry(addMore) {
+      if (addMore) {
+        resetForm();
+        document.querySelector('.form-section').style.display = 'flex';
+        document.getElementById('submitBtn').style.display = 'inline-block';
+        document.getElementById('anotherEntryPrompt').style.display = 'none';
+      } else {
+        showTable();
+      }
+    }
+  
+    // Reset form to blank state
+    function resetForm() {
+      document.getElementById('customerName').value = '';
+      document.querySelectorAll('input[name="freight"]').forEach(el => el.checked = false);
+      document.getElementById('productCategory').selectedIndex = 0;
+      document.getElementById('productName').selectedIndex = 0;
+      document.getElementById('quantity').value = '';
+      document.getElementById('priceInput').value = '';
+      document.querySelectorAll('input[name="priceType"]').forEach(el => el.checked = false);
+      priceLabel.textContent = 'Rate'; // reset label
+    }
+  
+    // Display final table of entries
+    function showTable() {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+      
+      entries.forEach(entry => {
+        const row = `<tr>
+          <td>${entry.customer}</td>
+          <td>${entry.freight}</td>
+          <td>${entry.category}</td>
+          <td>${entry.product}</td>
+          <td>${entry.quantity}</td>
+          <td>${entry.priceType}</td>
+          <td>${entry.priceValue}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+      });
+  
+      document.getElementById('anotherEntryPrompt').style.display = 'none';
+      document.getElementById('finalTable').style.display = 'block';
+      
+      // Show employee name
+      const empName = employeeNameGlobal || 'N/A';
+      document.getElementById('employeeDisplay').innerHTML = `<strong>Form filled by:</strong> ${empName}`;
+    }
+  </script>  
+  
+  
+</body>
+</html>
